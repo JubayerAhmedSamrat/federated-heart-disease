@@ -16,7 +16,11 @@ def evaluate(model, pipeline, X_test, y_test):
 
     return {
         "accuracy": accuracy_score(y_test, predictions),
-        "precision": precision_score(y_test, predictions),
-        "recall": recall_score(y_test, predictions),
-        "f1": f1_score(y_test, predictions),
+        "precision": precision_score(
+            y_test, predictions, average="weighted", zero_division=0
+        ),
+        "recall": recall_score(
+            y_test, predictions, average="weighted", zero_division=0
+        ),
+        "f1": f1_score(y_test, predictions, average="weighted", zero_division=0),
     }
