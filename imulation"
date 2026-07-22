@@ -1,0 +1,19 @@
+[33m616a528[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m refactor(federated): cache datasets in client factory
+[33mff76787[m feat(federated): prepare simulation entrypoint
+[33mf510657[m fix(training): restore centralized training execution
+[33m0eeb458[m chore(federated): scaffold simulation module
+[33m555f761[m feat(federate): add client factory skeleton
+[33mb332011[m feat(federated): add FedAvg server strategy
+[33m911f2b9[m refactor(federated): centralize model parameter handling
+[33m996bb45[m feat(federated): implement local client training
+[33mdd9f1cf[m feat(federated): expose model parameters for Flower clients
+[33md8bc993[m refactor(training): extract centralized training pipeline
+[33m90e029b[m feat(federated): implement Flower client evaluation
+[33m048c30c[m feat(federated): implement FLower Client parameter exchange
+[33mce097fb[m feat(federated): add Flower client skeleton and parameter utilities
+[33m0aa482d[m feat(federated): add initial Flower client skeleton
+[33m5349455[m feat(triaing): add local logistic regression baseline
+[33m6e6bec1[m Implement dataset loader
+[33mf4dc7d5[m Add raw heart disease datasets
+[33m43d3a34[m Create data pipeline modules
+[33me5b6d31[m project init
