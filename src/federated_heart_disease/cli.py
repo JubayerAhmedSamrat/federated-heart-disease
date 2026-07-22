@@ -10,3 +10,7 @@ def main():
     download_all(Path("data/raw"))
 
     run_centralized_training(Path("data/raw"))
+
+
+if __name__ == "__main__":
+    main()

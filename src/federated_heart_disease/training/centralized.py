@@ -42,9 +42,9 @@ def run_centralized_training(data_dir: Path):
         for key, value in metrics.items():
             print(f"{key:10}: {value:.4f}")
 
-            save_report(
-                results,
-                Path("results/metrics.csv"),
-            )
+    save_report(
+        results,
+        Path("results/metrics.csv"),
+    )
 
-            return results
+    return results
