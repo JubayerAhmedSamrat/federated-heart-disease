@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from federated_heart_disease.data.downloader import download_all
 from federated_heart_disease.training.centralized import (
     run_centralized_training,
 )

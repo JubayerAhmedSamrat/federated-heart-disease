@@ -1,15 +1,11 @@
 from __future__ import annotations
+
 from federated_heart_disease.federated.parameters import (
+    get_model_parameters,
     set_model_parameters,
 )
 
-from sklearn.metrics import accuracy_score
-
 import flwr as fl
-
-
-def get_parameters(self, config):
-    return get_model_paratmeters(self.model)
 
 
 class HeartDiseaseClient(fl.client.NumPyClient):
@@ -35,16 +31,11 @@ class HeartDiseaseClient(fl.client.NumPyClient):
         self.pipeline = pipeline
 
     def get_parameters(self, config):
-        return [
-            self.model.coef_,
-            self.model.intercept_,
-        ]
+        return get_model_parameters(self.model)
 
     def fit(self, parameters, config):
         # Receive global parameters
-        self.model.coef_ = parameters[0]
-        self.model.intercept_ = parameters[1]
-
+        set_model_parameters(self.model, parameters)
         # Transform training data
         X_train = self.pipeline.transform(self.X_train)
 
@@ -53,25 +44,23 @@ class HeartDiseaseClient(fl.client.NumPyClient):
 
         # Return updated parameters
         return (
-            [
-                self.model.coef_,
-                self.model.intercept_,
-            ],
+            get_model_parameters(self.model),
             len(self.X_train),
             {},
         )
 
     def evaluate(self, parameters, config):
+        # Update model with global parameters
         set_model_parameters(self.model, parameters)
-
+        # Transform test data
         X_test = self.pipeline.transform(self.X_test)
 
-        prediction = self.model.predict(X_test)
-
-        accuracy = accuracy_score(self.y_test, predictions)
+        # Evaluate
+        accuracy = self.model.score(X_test, self.y_test)
+        loss = 1.0 - accuracy
 
         return (
-            1.0 - accuracy,
+            loss,
             len(self.X_test),
             {
                 "accuracy": accuracy,
