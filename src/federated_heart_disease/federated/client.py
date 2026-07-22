@@ -4,6 +4,8 @@ from federated_heart_disease.federated.parameters import (
     set_model_parameters,
 )
 
+from sklearn.metrics import accuracy_score
+
 import flwr as fl
 
 
@@ -50,4 +52,18 @@ class HeartDiseaseClient(fl.client.NumPyClient):
         )
 
     def evaluate(self, parameters, config):
-        pass
+        set_model_parameters(self.model, parameters)
+
+        X_test = self.pipeline.transform(self.X_test)
+
+        prediction = self.model.predict(X_test)
+
+        accuracy = accuracy_score(self.y_test, predictions)
+
+        return (
+            1.0 - accuracy,
+            len(self.X_test),
+            {
+                "accuracy": accuracy,
+            },
+        )
