@@ -9,9 +9,11 @@ from federated_heart_disease.training.train import train_model
 from federated_heart_disease.federated.client import HeartDiseaseClient
 
 
+_DATASETS = load_all(Path("data/raw"))
+
+
 def create_client(hospital: str) -> HeartDiseaseClient:
-    datasets = load_all(Path("data/raw"))
-    df = preprocess(datasets[hospital])
+    df = preprocess(_DATASETS[hospital])
 
     X_train, X_test, y_train, y_test = split_dataset(df)
 
