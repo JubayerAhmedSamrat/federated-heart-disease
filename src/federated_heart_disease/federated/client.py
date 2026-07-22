@@ -1,6 +1,5 @@
 from __future__ import annotations
 from federated_heart_disease.federated.parameters import (
-    get_model_parameters,
     set_model_parameters,
 )
 
@@ -42,14 +41,22 @@ class HeartDiseaseClient(fl.client.NumPyClient):
         ]
 
     def fit(self, parameters, config):
-        set_model_parameters(self.model, parameters)
+        # Receive global parameters
+        self.model.coef_ = parameters[0]
+        self.model.intercept_ = parameters[1]
 
+        # Transform training data
         X_train = self.pipeline.transform(self.X_train)
 
+        # Train one local round
         self.model.fit(X_train, self.y_train)
 
+        # Return updated parameters
         return (
-            get_model_paratmeters(self.model),
+            [
+                self.model.coef_,
+                self.model.intercept_,
+            ],
             len(self.X_train),
             {},
         )
