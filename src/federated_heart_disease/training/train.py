@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from sklearn.pipeline import Pipeline
 
 from federated_heart_disease.data.scaler import create_pipeline
 from federated_heart_disease.models.logistic import create_model

@@ -6,6 +6,7 @@ from federated_heart_disease.data.preprocessing import preprocess
 from federated_heart_disease.data.splitter import split_dataset
 from federated_heart_disease.training.train import train_model
 from federated_heart_disease.evaluation.metrics import evaluate
+from federated_heart_disease.utils.io import save_model
 
 
 def main():
@@ -17,6 +18,11 @@ def main():
         X_train, X_test, y_train, y_test = split_dataset(df)
 
         model, pipeline = train_model(X_train, y_train)
+
+        save_model(
+            model,
+            Path(f"results/models/{hospital}_logistic.pk1"),
+        )
 
         metrics = evaluate(
             model,
