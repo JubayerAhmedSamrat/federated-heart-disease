@@ -1,7 +1,9 @@
 from __future__ import annotations
 from federated_heart_disease.federated.parameters import (
-    get_model_paratmeters,
+    get_model_parameters,
+    set_model_parameters,
 )
+
 import flwr as fl
 
 
@@ -35,7 +37,17 @@ class HeartDiseaseClient(fl.client.NumPyClient):
         pass
 
     def fit(self, parameters, config):
-        pass
+        set_model_parameters(self.model, parameters)
+
+        X_train = self.pipeline.transform(self.X_train)
+
+        self.model.fit(X_train, self.y_train)
+
+        return (
+            get_model_paratmeters(self.model),
+            len(self.X_train),
+            {},
+        )
 
     def evaluate(self, parameters, config):
         pass
