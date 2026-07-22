@@ -36,7 +36,10 @@ class HeartDiseaseClient(fl.client.NumPyClient):
         self.pipeline = pipeline
 
     def get_parameters(self, config):
-        pass
+        return [
+            self.model.coef_,
+            self.model.intercept_,
+        ]
 
     def fit(self, parameters, config):
         set_model_parameters(self.model, parameters)
