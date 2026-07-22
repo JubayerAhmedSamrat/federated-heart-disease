@@ -9,5 +9,5 @@ def create_strategy():
         fraction_evaluate=1.0,
         min_fit_clients=4,
         min_evaluate_clients=4,
-        min_avaiable_clients=4,
+        min_available_clients=4,
     )
